@@ -1,0 +1,89 @@
+ <div class="blurred hidden" id="blurred"></div>
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+        <li><a href="/logout"><b>Logout</b></a></li>
+    </div>
+    </div>
+</ul> 
+</div>
+     
+    <div class="movie_columns">
+
+                <section class="page-content--section-title">
+                       <h3 class="page-content--section-title--title">User Profile</h3>
+                </section>
+               
+        <div class="movies-details">
+                        <ul>
+                        {{#each userDetails}}
+                            <h3>{{this.firstname}}  {{this.lastname}}</h3>
+                            <div class=""><span><b>User name : </b></span><font class="listItems">{{this.username}}</font></div>
+                            <div class=""><span><b>Email : </b></span><font class="listItems">{{this.emailAddress}}</font></div>
+                            <div class=""><span><b>Gender : </b></span><font class="listItems">{{this.Gender}}</font></div>
+                            <div class=""><span><b>City : </b></span><font class="listItems">{{this.City}}</font></div>
+                            <div class=""><span><b>State : </b></span><font class="listItems">{{this.State}}</font></div>
+
+                             {{#selfIntro}}
+                                <span><b>Comments</b></span><div class=""><font>{{this.Comments }}</font></div>
+                                <span><b>Favored Tags </b></span>
+                                 {{#favoredtags}}
+                                        <div class="listItems"><font>{{this}}</font></div>
+                                 {{/favoredtags}}
+                             {{/selfIntro}}
+                           
+                        {{/each}}
+
+                    {{#each singleMovie}}
+                    <h2>Audience Review</h2>
+                        {{#comments}}
+                            <li><span><b>User name >>>&nbsp;&nbsp;</b></span>{{username}}</li>
+                            <li><span><b>User Rating >>>&nbsp;&nbsp;</b></span><font>{{movieRating}}</font></li>
+                            <li><span><b>User Comment Tags >>>&nbsp;&nbsp;</b></span><font>{{commentTags}}</font></li>
+                            <hr>
+                        {{else}}
+                             <h5>No audience reviews</h5>
+                        {{/comments}}
+                        {{/each}}
+                        </ul>
+                    </div>
+
+                <section class="page-content--section-title">
+                       <h3 class="page-content--section-title--title">Top Movies</h3>
+                </section>
+
+            {{#each recentMoviesList}}
+             <div class="row">
+               <div class="s-lib-box s-lib-box-std">
+                
+                        <div class="s-lib-box-content">
+                        <ul>
+                            <h2 class="s-lib-box-title"><div class=""><b><a href="/individual-movie/{{this._id}}">{{this.Title}}</a></b></div></h2>
+                            <li><span><b>Release Date</b></span><div class=""><font>{{this.Release_Date}}</font></div></li>
+                            <li><span><b>Genre</b></span> <div class=""><font>{{this.Genre}}</font></div></li>
+                            <li><span><b>Director</b></span><div class=""><font>{{this.Director}}</font></div></li>
+                            <li> <span><b>Cast</b></a></span><div class=""> <font>{{this.Cast}}</font></div></li>
+                            <li> <span><b>Movie rating</b></span><div class=""><font>{{this.User_Rating}}</font> </div></li>
+                            <li><span><b>Total reviews</b></span><div class=""><font>{{this.Review_Count}}</font></div></li>
+                        </ul>
+                             <a href="/individual-movie/{{this._id}}"><div class="view_more_movie_details"><span><b>View movie</b></span></div></a>
+                    </div>
+                </div>
+            </div>
+             {{/each}}
+    
+
+    {{!-- end columns --}}
+
+    </div>
+           
+</div>
+<script src="js/main.js"></script>

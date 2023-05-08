@@ -1,0 +1,96 @@
+ <div class="blurred hidden" id="blurred"></div>
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+         {{{link}}}
+    </div>
+    </div>
+</ul> 
+</div>
+
+        <div id="loginform" class="hidden">
+           <form action="/login" method="POST" id="login-form">
+
+                <label for="username">User name</label><br>
+                 <span class="error" id="usernameError">{{usernameError}}</span>
+                <input type="text" name="username" id="username" value="{{username}}" placeholder="user001">
+                
+                 <label for="passwordInput">password</label><br>
+                 <span class="error" id="passwordError">{{passwordError}}</span>
+                <input type="password" name="passwordInput" id="passwordInput" value="{{password}}" placeholder="password">
+                
+                <button type="submit" id="login" class="submit">Login</button>
+
+                <div class="link">
+                <label for="passwordInput"><a href="/register">For new audience click here </a></label>
+                </div>
+
+            </form>
+        </div>
+            
+            {{!-- columns --}}
+     
+    <div class="movie_columns">
+
+                <section class="page-content--section-title">
+                       <h3 class="page-content--section-title--title">Individual Movie Listing</h3>
+                </section>
+               
+        <div class="movies-details">
+                        <ul>
+                        {{#each singleMovie}}
+                            <h3>{{this.movieName}}</h3>
+                            <span><b>Movie Description </b></span><div class=""><font>{{this.movieDescription }}</font></div>
+                            <span><b>Genre </b></span>
+                             {{#genre}}
+                                <div class="listItems"><font>{{this}}</font> </div>
+                             {{/genre}}
+                            <span><b>Cast</b>
+                            {{#cast}}
+                                <div class="listItems"><font>{{this}}</font> </div>
+                             {{/cast}}
+                            <span><b>Release Date</b></span><div class="listItems"><font>{{this.releaseDate}}</font></div>
+                            <span><b>Languages </b></span><div class="listItems"><font>{{this.language}}</font></div>
+
+                            <span><b>External Link to trailer</b></span><a href="{{this.trailer_link}}" target="_blank"><div class="view_more_movie_details"><font> <b>View Trailer</b></font> </div></a>
+ 
+                            <span><b>External Link to Buy tickets</b></span> <a href="{{this.tiket_link}}" target="_blank"><div class="view_more_movie_details"><font><b>Buy Trailer ticket</b></font> </div></a>
+                        
+                            <span><b>Add audience Review</b></span> <a href="/audience-review/{{this.movie_id}}"><div class="view_more_movie_details"><font><b>Add Your Review</b></font> </div></a>
+                       
+                        {{/each}}
+
+                    {{#each singleMovie}}
+                    <h2>Audience Review</h2>
+                        {{#comments}}
+                            <li><span><b>User name >>>&nbsp;&nbsp;</b></span>{{username}}</li>
+                            <li><span><b>User Rating >>>&nbsp;&nbsp;</b></span><font>{{movieRating}}</font></li>
+                            <li><span><b>User Comment Tags >>>&nbsp;&nbsp;</b></span><font>{{commentTags}}</font></li>
+                            <hr>
+                        {{else}}
+                             <h5>No audience reviews</h5>
+                        {{/comments}}
+                        {{/each}}
+{{!-- 
+                            <li> <span><b>Movie rating</b></span><div class=""><font>4</font> </div></li>
+                            <li><span><b>Total reviews</b></span><div class=""><font>400</font></div></li> --}}
+                        </ul>
+                            {{!-- <div class="view_more_movie_details"><span><a href="/individual-movie/300"><b>View movie</b></a></span></div> --}}
+                 
+    </div>
+    
+
+    {{!-- end columns --}}
+
+    </div>
+           
+</div>
+<script src="js/main.js"></script>

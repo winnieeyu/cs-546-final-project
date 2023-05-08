@@ -1,0 +1,163 @@
+ <div class="blurred hidden" id="blurred"></div>
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+        {{{link}}}
+    </div>
+    </div>
+</ul> 
+</div>
+
+        <div id="loginform" class="hidden">
+            <form action="/login" method="POST" id="login-form">
+
+                <label for="username">User name</label><br>
+                 <span class="error" id="usernameError">{{usernameError}}</span>
+                <input type="text" name="username" id="username" value="{{username}}" placeholder="user001">
+                
+                 <label for="passwordInput">password</label><br>
+                 <span class="error" id="passwordError">{{passwordError}}</span>
+                <input type="password" name="passwordInput" id="passwordInput" value="{{password}}" placeholder="password">
+                
+                <button type="submit" id="login" class="submit">Login</button>
+
+                <div class="link">
+                <label for="passwordInput"><a href="/register">For new audience click here </a></label>
+                </div>
+
+            </form>
+        </div>
+
+               <h2 class="headline-1" style="
+    text-align: center;
+">
+		Review films you’ve&nbsp;watched.<br>Get reviews from critics.<br>Tell your friends what’s&nbsp;good.
+&nbsp;</h2>
+
+            {{!-- columns --}}
+     
+    <div class="movie_columns">
+
+                <section class="page-content--section-title">
+                         <span class="page-content--section-title--overline"></span>
+                       <h3 class="page-content--section-title--title">Recent movies</h3>
+                </section>
+
+        <div class="movies">
+              {{#each recentMoviesList}}
+             <div class="row">
+               <div class="s-lib-box s-lib-box-std">
+                
+                        <div class="s-lib-box-content">
+                        <ul>
+                            <h2 class="s-lib-box-title"><div class=""><b><a href="/individual-movie/{{this._id}}">{{this.Title}}</a></b></div></h2>
+                            <li><span><b>Release Date</b></span><div class=""><font>{{this.Release_Date}}</font></div></li>
+                            <li><span><b>Genre</b></span> <div class=""><font>{{this.Genre}}</font></div></li>
+                            <li><span><b>Director</b></span><div class=""><font>{{this.Director}}</font></div></li>
+                            <li> <span><b>Cast</b></a></span><div class=""> <font>{{this.Cast}}</font></div></li>
+                            <li> <span><b>Movie rating</b></span><div class=""><font>{{this.User_Rating}}</font> </div></li>
+                            <li><span><b>Total reviews</b></span><div class=""><font>{{this.Review_Count}}</font></div></li>
+                        </ul>
+                             <a href="/individual-movie/{{this._id}}"><div class="view_more_movie_details"><span><b>View movie</b></span></div></a>
+                    </div>
+                </div>
+            </div>
+             {{/each}}
+
+            </div>
+            {{!-- end columns --}}
+
+    </div>
+
+                {{!-- tabs --}}
+                  <section class="page-content--section-title">
+                         <span class="page-content--section-title--overline"></span>
+                       <h3 class="page-content--section-title--title">Movie genres</h3>
+                </section>
+
+
+            <div class="tabls">
+                <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Action')" id="defaultOpen">Action</button>
+                <button class="tablinks" onclick="openCity(event, 'Horror')">Horror</button>
+                <button class="tablinks" onclick="openCity(event, 'Comedy')">Comedy</button>
+                </div>
+            </div>
+
+
+                <div id="Action" class="tabcontent">
+                     {{#each action}}
+                        <div class="row">
+                        <div class="s-lib-box s-lib-box-std">
+                                    <div class="s-lib-box-content">
+                                    <ul>
+                                        <h2 class="s-lib-box-title"><div class=""><b><a href="/individual-movie/{{this._id}}">{{this.Title}}</a></b></div></h2>
+                                        <li><span><b>Release Date</b></span><div class=""><font>{{this.Release_Date}}</font></div></li>
+                                        <li><span><b>Genre</b></span> <div class=""><font>{{this.Genre}}</font></div></li>
+                                        <li><span><b>Director</b></span><div class=""><font>{{this.Director}}</font></div></li>
+                                        <li> <span><b>Cast</b></a></span><div class=""> <font>{{this.Cast}}</font></div></li>
+                                        <li> <span><b>Movie rating</b></span><div class=""><font>{{this.User_Rating}}</font> </div></li>
+                                        <li><span><b>Total reviews</b></span><div class=""><font>{{this.Review_Count}}</font></div></li>
+                                    </ul>
+                                        <a href="/individual-movie/{{this._id}}"><div class="view_more_movie_details"><span><b>View movie</b></span></div></a>
+                                </div>
+                            </div>
+                        </div>
+                {{/each}}
+            </div>
+
+            <div id="Horror" class="tabcontent">
+                 {{#each horror}}
+                        <div class="row">
+                        <div class="s-lib-box s-lib-box-std">
+                                    <div class="s-lib-box-content">
+                                    <ul>
+                                        <h2 class="s-lib-box-title"><div class=""><b><a href="/individual-movie/{{this._id}}">{{this.Title}}</a></b></div></h2>
+                                        <li><span><b>Release Date</b></span><div class=""><font>{{this.Release_Date}}</font></div></li>
+                                        <li><span><b>Genre</b></span> <div class=""><font>{{this.Genre}}</font></div></li>
+                                        <li><span><b>Director</b></span><div class=""><font>{{this.Director}}</font></div></li>
+                                        <li> <span><b>Cast</b></a></span><div class=""> <font>{{this.Cast}}</font></div></li>
+                                        <li> <span><b>Movie rating</b></span><div class=""><font>{{this.User_Rating}}</font> </div></li>
+                                        <li><span><b>Total reviews</b></span><div class=""><font>{{this.Review_Count}}</font></div></li>
+                                    </ul>
+                                        <a href="/individual-movie/{{this._id}}"><div class="view_more_movie_details"><span><b>View movie</b></span></div></a>
+                                </div>
+                            </div>
+                        </div>
+                {{/each}}
+                </div>
+
+                <div id="Comedy" class="tabcontent">
+                    {{#each comedy}}
+                        <div class="row">
+                        <div class="s-lib-box s-lib-box-std">
+                                    <div class="s-lib-box-content">
+                                    <ul>
+                                        <h2 class="s-lib-box-title"><div class=""><b><a href="/individual-movie/{{this._id}}">{{this.Title}}</a></b></div></h2>
+                                        <li><span><b>Release Date</b></span><div class=""><font>{{this.Release_Date}}</font></div></li>
+                                        <li><span><b>Genre</b></span> <div class=""><font>{{this.Genre}}</font></div></li>
+                                        <li><span><b>Director</b></span><div class=""><font>{{this.Director}}</font></div></li>
+                                        <li> <span><b>Cast</b></a></span><div class=""> <font>{{this.Cast}}</font></div></li>
+                                        <li> <span><b>Movie rating</b></span><div class=""><font>{{this.User_Rating}}</font> </div></li>
+                                        <li><span><b>Total reviews</b></span><div class=""><font>{{this.Review_Count}}</font></div></li>
+                                    </ul>
+                                        <a href="/individual-movie/{{this._id}}"><div class="view_more_movie_details"><span><b>View movie</b></span></div></a>
+                                </div>
+                            </div>
+                        </div>
+                {{/each}}
+                </div>
+
+
+            </div>
+            {{!-- end of tabs --}}
+        
+<script src="js/main.js"></script>

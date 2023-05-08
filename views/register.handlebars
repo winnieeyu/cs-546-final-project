@@ -1,0 +1,118 @@
+<div class="blurred hidden" id="blurred"></div>
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+         <li><a href="/login-form">Login</a></li>
+    </div>
+    </div>
+</ul> 
+</div>
+            {{!-- columns --}}
+     
+    <div class="movie_columns">
+
+                <section class="page-content--section-title">
+                       <h3 class="page-content--section-title--title">Register</h3>
+                </section>
+
+        <div class="main">
+            <h1></h1>
+            <div class="error">
+              <p id="err">{{validationError}} </p>
+            </div>
+          <div class="form">
+            <form action="/register" method="POST" id="registration-form">
+
+                <label for="firstNameInput">First name</label><br>
+                <span class="error" id="firstNameError">{{firstNameError}}</span>
+                <input type="text" name="firstNameInput" id="firstNameInput" value="{{firstName}}" placeholder="First name">
+
+                <label for="lastNameInput">Last name</label><br>
+                <span class="error" id="lastNameError">{{lastNameError}}</span>
+                <input type="text" name="lastNameInput" id="lastNameInput" value="{{lastName}}" placeholder="Last name">
+
+                <label for="username">Username</label><br>
+                <span class="error" id="usernameError">{{usernameError}}</span>
+                <input type="text" name="username" id="username" value="{{username}}" placeholder="username (unique one)">
+
+
+                <label for="emailAddressInput">Email</label><br>
+                <span class="error" id="emailError">{{emailError}}</span>
+                <input type="email" name="emailAddressInput" id="emailAddressInput" value="{{emailAddress}}" placeholder="myemail@gmail.com">
+
+                <label for="gender">Gender</label><br>
+                <span class="error" id="genderError">{{genderError}}</span>
+                <select id="gender" name="gender">
+                  <option value="M">Male</option>
+                  <option value="F">Femaile</option>
+                </select>
+
+                <label for="city">City</label><br>
+                <span class="error" id="cityError">{{cityError}}</span>
+                <input type="text" name="city" id="city" value="{{city}}" placeholder="city">
+
+                 <label for="state">State</label><br>
+                <span class="error" id="stateError">{{stateError}}</span>
+                <input type="text" name="state" id="state" value="{{state}}" placeholder="state">
+
+                 <label for="state">Age</label><br>
+                <span class="error" id="ageError">{{ageError}}</span>
+                <input type="text" name="age" id="age" value="{{age}}" placeholder="age">
+
+
+
+                  <label for="state">Self Introduction</label><br>
+                <span class="error" id="selfcommentError">{{introError}}</span>
+                <textarea name="selfcomment" id="selfcomment" cols="45" rows="10" placeholder="eg I really like Action Movies, one of my favorites is Sam Raimi's Spider-Man trilogy (2002–2007). Wish I can meet more action fans like me at this site." style="
+    padding: 10px;
+">{{selfcomment}}</textarea>
+
+                  <label for="commentTag">Favorite movies</label><br>
+                <span class="error" id="errorTag"></span><br>
+
+                <input type="checkbox" id="tag1" name="tag1" value="Action">
+                <label class="tags" for="tag1"> Action </label><br><br>
+
+                <input class="tags" type="checkbox" id="tag2" name="tag2" value="SuperHero">
+                <label class="tags" for="tag2">SuperHero</label><br><br>
+
+                <input class="tags" type="checkbox" id="tag3"  name="tag3" value="Horror">
+                <label class="tags" for="tag3"> Horror</label><br><br>
+
+                <input class="tags" type="checkbox" id="tag4"  name="tag4" value="Drama">
+                <label class="tags" for="tag4" > Drama </label><br><br>
+
+                <input class="tags" type="checkbox" id="tag5"  name="tag4" value="Sci-Fi">
+                <label class="tags" for="tag5" > Sci-Fi </label><br><br>
+                
+                 <label for="passwordInput">Password</label><br>
+                 <span class="error" id="passwordError">{{passwordError}}</span>
+                 <input type="password" name="passwordInput" id="passwordInput" value="{{password}}" placeholder="password">
+
+                 <label for="confirmPasswordInput">Confirm password</label><br>
+                   <span class="error" id="confirmPasswordError"></span>
+                 <input type="password" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="confirm password">
+
+                  <span class="error" id="passwordMismatchError"></span>
+                 <button type="submit" id="register" class="submit">Register</button>
+
+                <div class="link">
+                <label>Already have an account? <a href="/login-form">Click here to log-in</a></label>
+                </div>
+
+            </form>
+            </div>
+        </div>
+
+    </div>
+           
+</div>
+<script src="js/main.js"></script>

@@ -1,0 +1,93 @@
+ <div class="blurred hidden" id="blurred"></div>
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+        <li><a href="/user-profile"><b>My profile</b></a></li>
+        <li><a href="/logout"><b>Logout</b></a></li>
+    </div>
+    </div>
+</ul> 
+</div>
+
+            {{!-- columns --}}
+     
+    <div class="movie_columns">
+
+                <section class="page-content--section-title">
+                       <h3 class="page-content--section-title--title">Audiemce Movie Reviews</h3>
+                </section>
+               
+        <div class="movies-details">
+            <span class="error">{{reviewCommentError}}</span>
+            <span style="color:green;font-size:20px">{{sucess}}</span>
+                        <ul>
+                        {{#each singleMovie}}
+                            <h3>{{this.movieName}}</h3>
+                            <span><b>Movie Description </b></span><div class=""><font>{{this.movieDescription }}</font></div>
+                            <span><b>Genre </b></span>
+                             {{#genre}}
+                                <div class="listItems"><font>{{this}}</font> </div>
+                             {{/genre}}
+                         
+                            <span><b>Release Date</b></span><div class="listItems"><font>{{this.releaseDate}}</font></div>
+                            <span><b>Languages </b></span><div class="listItems"><font>{{this.language}}</font></div>
+
+                        {{/each}}
+
+                        </ul>
+             
+             <div class="form">
+                 <h2>Make a Review </h2><br>
+            <form action="/post-review" method="post" id="review-form">
+
+            {{#each singleMovie}}  <input type="hidden" name="movie_id" id="movie_id" value="{{this.movie_id}}">  {{/each}}
+              <label for="rating">Rating</label><br>
+              <span class="error" id="ratingError">{{ratingError}}</span>
+                <select id="rating" name="rating">
+                  <option value="" hidden>Select movie rating </option>
+                  <option value="1"> 1 Star</option>
+                  <option value="2">2 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="5">5 Stars</option>
+                </select>
+
+                
+                <label for="commentTag">Comments tag</label><br>
+                <span class="error" id="errorTag"></span><br>
+                <input type="checkbox" id="tag1" name="tag1" value="good plot">
+                <label class="tags" for="tag1"> good plot</label><br><br>
+
+                <input class="tags" type="checkbox" id="tag2" name="tag2" value="good action">
+                <label class="tags" for="tag2"> good action</label><br><br>
+                <input class="tags" type="checkbox" id="tag3"  name="tag3" value="good acting">
+                <label class="tags" for="tag3"> good acting</label><br><br>
+                <input class="tags" type="checkbox" id="tag4"  name="tag4" value="good trailer">
+                <label class="tags" for="tag4" > good trailer</label><br><br>
+
+  
+                <br><label for="firstNameInput">Movie comment (pros and cons)</label><br>
+                <span class="error" id="errorComents"></span>
+                <textarea name="comments" id="comments" cols="45" rows="10"></textarea>
+                
+                 <button type="submit" id="review" class="submit">Post Review</button>
+
+
+            </form>
+       </div>
+    
+
+    {{!-- end columns --}}
+
+    </div>
+           
+</div>
+<script src="js/main.js"></script>

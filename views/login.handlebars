@@ -1,0 +1,44 @@
+  <div class="main">
+
+  <div class="navbar">
+    <ul>
+    <div class="nav_bar_items">
+    <li>
+        <a class="logo" href="/"><strong> Movie reviews website </strong></a>
+    </li>
+    <div id="main_menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies-listing">Movie Listing</a></li>
+        <li><a class="new_customer" href="/register">New Audience</a></li>
+    </div>
+    </div>
+</ul> 
+</div>
+
+        <div id="loginform" class="login_form" >
+            <form action="/login" method="POST" id="login-form">
+
+                <label for="username">User name</label><br>
+                 <span class="error" id="usernameError">{{usernameError}}</span>
+                <input type="text" name="username" id="username" value="{{username}}" placeholder="user001">
+                
+                 <label for="passwordInput">password</label><br>
+                 <span class="error" id="passwordError">{{passwordError}}</span>
+                <input type="password" name="passwordInput" id="passwordInput" value="{{password}}" placeholder="password">
+                
+                <button type="submit" id="login" class="submit">Login</button>
+
+                <div class="link">
+                <label for="passwordInput"><a href="/register">For new audience click here </a></label>
+                </div>
+
+            </form>
+        </div>
+
+          
+</div>
+
+           
+       
+
+    <script src="js/main.js"></script>
