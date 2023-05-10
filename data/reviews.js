@@ -1,99 +1,140 @@
-
-import { reviews } from '../config/mongoCollections.js';
-import helperFunctions from '../helpers.js';
+//import mongo collections, bcrypt and implement the following data functions
 import { ObjectId } from 'mongodb';
-const reviewsDataFunctions = {
+import { movies, reviews } from '../config/mongoCollections.js';
+import helperFunctions from '../helpers.js';
 
-    async createReview(movie_id,movieName,movieDescription,language,genre,cast,release_date,trailer_link,tiket_link){
+const moviesDataFunctions = {
+
+    async createMovie(title,release_date,genre,director, cast,movie_poster_url,movie_rating,review_count) {
         try{
-            
-        //check if all fields are provide
-        const allValidate  = helperFunctions.checkMovieReview(movieName,movieDescription,genre,cast,release_date);
-        if(allValidate !== true) throw allValidate;
-
-        //validate movie Name
-        const movieNameValidation = helperFunctions.validateString(movieName,"movie name");
-        if(movieNameValidation !== true) throw movieNameValidation;
+            //check if all fields are provide
+        const allValidate  = helperFunctions.checkMoviesFields(title,release_date,genre,director,cast,movie_poster_url,movie_rating,review_count);
+        if(allValidate !== true)
+            throw allValidate;
         
-        //validate movie Description
-        const decriptionValidation = helperFunctions.validateString(movieDescription,"Movie Description");
-        if(decriptionValidation !== true) throw decriptionValidation;
-                
-        //validate movie Description
-        const languageValidation = helperFunctions.validateString(language,"Movie language");
-        if(languageValidation !== true) throw languageValidation;
-
-        //validate genre
-        const genreValidation = helperFunctions.validateArray(genre,"genre");
-        if(genreValidation !== true) throw genreValidation;
-
-        //validate cast
-        const castValidation = helperFunctions.validateArray(cast,"cast");
-        if(castValidation !== true) throw castValidation;
+        //validate title
+        const titleValidation = helperFunctions.validateString(title,"title");
+        if(titleValidation !== true)
+            throw titleValidation;
 
         //validate release date
         const dateValidation = helperFunctions.validateDate(release_date);
-        if(dateValidation !== true) throw dateValidation;
+        if(dateValidation !== true)
+            throw dateValidation;
 
-        const Review = {
-            "movie_id":movie_id,
-            "movieName": movieName,
-            "movieDescription": movieDescription,
-            "language":language,
-            "genre": genre,
-            "cast": cast,
-            "releaseDate":release_date,
-            "trailer_link":trailer_link,
-            "tiket_link":tiket_link,
-            "comments": []
-          }
+        //validate genre
+        const genreValidation = helperFunctions.validateArray(genre,"genre");
+        if(genreValidation !== true)
+            throw genreValidation;
 
-        //console.log(Review);
+        //validate director
+        const directorValidation = helperFunctions.validateString(director,"director");
+        if(directorValidation !== true)
+            throw directorValidation;
 
-        //insert into database
-        const addReview = await reviews();
-        return await addReview.insertOne(Review);
+        //validate cast
+        const castValidation = helperFunctions.validateArray(cast,"cast");
+        if(castValidation !== true)
+            throw castValidation;
 
-        }catch(err){
-            throw err;
-        }
+        //validate movie_poster_url
+        const posterURLValidation = helperFunctions.validateString(movie_poster_url,"movie_poster_url");
+        if(posterURLValidation !== true)
+            throw posterURLValidation;
+
+        //validate movie_rating
+        const ratingValidation = helperFunctions.validateRating(movie_rating);
+        if(ratingValidation !== true)
+            throw ratingValidation;
+
+        //validate review_count
+        const review_countValidation = helperFunctions.validateReviewCount(review_count);
+        if(review_countValidation !== true)
+            throw review_countValidation;
+
+            const newMovie = {
+                "Title": title,
+                "Release_Date": release_date,
+                "Genre": genre,
+                "Director":director,
+                "Cast": cast,
+                "Movie_Poster_Url":movie_poster_url,
+                "User_Rating":movie_rating,
+                "Review_Count":review_count
+              }
+              
+
+            //insert into database
+            const addMovie = await movies();
+            return await addMovie.insertOne(newMovie);
+
+        } catch (error) {
+            throw error;
+    }
+
     },
-    async getSingleReview(id){
-        try {            
-        //validate id
-        const idValidation = helperFunctions.validateObjectId(id);
-        if(idValidation !== true) throw idValidation;
+    async getMovies(){
+        try {
 
-            //get review collection
-            const reviewCollection = await reviews();
-            const reviewObj= await reviewCollection.find({"movie_id": id}).toArray();
-
-            console.log(reviewObj);
-
-            if (!reviewObj) throw 'No Reviews';
-            return reviewObj;
+            //get move collection
+            const moveCollection = await movies();
+           // const movieObj= await moveCollection.find({}).project({ _id : 1, title : 1 }).toArray(); get id,
+            const movieObj= await moveCollection.find({}).limit(4).toArray();
+  
+            //if no band found throw error
+            if (!movieObj) throw 'No Movies';
+            //return band details
+            return movieObj;
   
       } catch (error) {
         throw error
       }
     },
 
-    async getReviewForSingleUser(username){
+    async getMoviesByGenre(genre,limit){
+        try {
 
-      try {            
-            const reviewCollection = await reviews();
-            const reviewObj= await reviewCollection.find({ "comments.username":username}).toArray();
-
-            console.log(reviewObj);
-
-            if (!reviewObj) throw 'No Reviews';
-            return reviewObj;
+            //get move collection
+            const moveCollection = await movies();
+            const movieObj= await moveCollection.find({Genre: genre}).limit(limit).toArray();
+            if (!movieObj) throw 'No Movies';
+            //return band details
+            return movieObj;
   
       } catch (error) {
         throw error
       }
-
     },
+
+    async getRecentMovies(){
+        try {
+
+            //get move collection
+            const moveCollection = await movies();
+            const movieObj= await moveCollection.find({}).limit(8).toArray();
+
+            if (!movieObj) throw 'No Movies';
+            //return band details
+            return movieObj;
+  
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async updateMovieOverallRating(movie_id,new_rating,totalReviews){
+        try {
+     
+            const moveCollection = await movies();
+            const movieObj= moveCollection.updateOne({ _id: new ObjectId(movie_id)},{ $set:{User_Rating: new_rating,Review_Count:totalReviews} });
+
+            return movieObj;
+  
+      } catch (error) {
+        throw error
+      }
+    }
+   
 };
 
-export default reviewsDataFunctions;
+export default moviesDataFunctions;
