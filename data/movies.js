@@ -1,4 +1,5 @@
 //import mongo collections, bcrypt and implement the following data functions
+import { ObjectId } from 'mongodb';
 import { movies, reviews } from '../config/mongoCollections.js';
 import helperFunctions from '../helpers.js';
 
@@ -63,8 +64,6 @@ const moviesDataFunctions = {
               }
               
 
-            //console.log(newMovie);
-
             //insert into database
             const addMovie = await movies();
             return await addMovie.insertOne(newMovie);
@@ -122,6 +121,19 @@ const moviesDataFunctions = {
         throw error
       }
     },
+
+    async updateMovieOverallRating(movie_id,new_rating,totalReviews){
+        try {
+     
+            const moveCollection = await movies();
+            const movieObj= moveCollection.updateOne({ _id: new ObjectId(movie_id)},{ $set:{User_Rating: new_rating,Review_Count:totalReviews} });
+
+            return movieObj;
+  
+      } catch (error) {
+        throw error
+      }
+    }
    
 };
 
