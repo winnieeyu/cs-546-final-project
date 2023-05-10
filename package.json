@@ -1,7 +1,7 @@
 {
   "name": "lab_final_stub",
   "version": "1.0.0",
-  "description": "Main Page Section",
+  "description": "Main Page Section, now containing other 3 more features meta version",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
