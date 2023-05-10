@@ -30,6 +30,8 @@ const commentsDataFunctions = {
 
             const reviewsCollection = await reviews();
 
+            movieRating = parseFloat(movieRating);
+
             const userComment =  { 
                 "_id": new ObjectId(),
                 "username": username,
