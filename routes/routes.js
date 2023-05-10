@@ -74,14 +74,14 @@ router
       tag.push(tag5.toString());
     }  
 
-    console.log(tag);
+    //console.log(tag);
 
   try {
  
   //insert into db
   const results = await usersData.createUser(firstName,lastName,username,emailAddress,gender,city,state,age,password,selfcomment,tag);
   
-  console.log(results);
+  //console.log(results);
   if(results.insertedUser === true) {
     return  res.redirect('/login-form');
   } else {  
@@ -127,10 +127,6 @@ router.route('/main-page')
 
     try {
 
-      console.log(username);
-      console.log(password);
-
-
       //fetch data from db
       const results = await usersData.checkUser(username,password);
 
@@ -168,8 +164,8 @@ router.route('/audience-review/:id').get(async (req, res) => {
   return res.render("audience-review",{pageTitle:"Audience Review",singleMovie:data});
 
   } catch (error) {
-    res.render("error",{pageTitle:"Home"});
     console.log(error);
+    res.render("error",{pageTitle:"Home"});
   }
 
 });
@@ -183,8 +179,9 @@ router.route('/individual-movie/:id').get(async (req, res) => {
     return res.render("individual-movie",{pageTitle:"Individual movie",link :link,singleMovie:data});
 
     } catch (error) {
-      res.render("error",{pageTitle:"Home"});
       console.log(error);
+      res.render("error",{pageTitle:"Home"});
+    
     }
 });
 
@@ -192,7 +189,7 @@ router.route("/post-review").post(async (req, res) => {
   
   const username =  req.session.username; 
   const movieId = req.body.movie_id;
-  const rating = parseInt(req.body.rating);
+  const rating = parseFloat(req.body.rating);
   const tag1 =  req.body.tag1;
   const tag2 =  req.body.tag2;
   const tag3 =  req.body.tag3;
@@ -215,7 +212,43 @@ router.route("/post-review").post(async (req, res) => {
  
   try {
 
+    //get all user reviews for this movie.
+
+    const results = await reviewsData.getSingleReview(movieId);
+    const comments = results[0].comments;
+
+    let totalRating = 0 ;
+    let arrLength = comments.length;
+    let average;
+    let totalReviews = arrLength + 1;
+    //if length is zero then average rating is current rating
+    if(arrLength > 0){
+
+        for (let index = 0; index < arrLength; index++) {
+          const crating = comments[index].movieRating;
+            totalRating +=crating;
+        }
+
+        console.log("sub Total rating "+totalRating);
+        totalRating +=rating; //add current rating from user
+        arrLength +=1; //increase total rating by one to account user rating count
+
+        console.log("Total rating "+totalRating);
+        console.log("array length "+arrLength);
+        average = totalRating/arrLength;
+        console.log("Average rating "+average);
+
+    }else{
+      average = rating;
+    }
+
+    average = parseFloat(average).toFixed(1);
+
+    console.log("Average rating "+average);
+
     const response = await commentsData.createComment(movieId,username,comment,rating,tag);
+    //update overall movie rating
+    await moviesData.updateMovieOverallRating(movieId,average,totalReviews);
 
     const data = await reviewsData.getSingleReview(movieId);
     return res.render("audience-review",{pageTitle:"Audience Review",sucess:"Comment addedd sucessfully",singleMovie:data});
