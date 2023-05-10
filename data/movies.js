@@ -91,6 +91,16 @@ const moviesDataFunctions = {
       }
     },
 
+    getClassByRate(vote) {
+        if (vote >= 8) {
+            return "green";
+        } else if (vote >= 5) {
+            return "orange";
+        } else {
+            return "red";
+        }
+    },
+
     async getMoviesByGenre(genre,limit){
         try {
 
@@ -99,6 +109,24 @@ const moviesDataFunctions = {
             const movieObj= await moveCollection.find({Genre: genre}).limit(limit).toArray();
             if (!movieObj) throw 'No Movies';
             //return band details
+            movieObj.forEach((movie) => {
+
+                const movieEl = document.createElement("div");
+                movieEl.classList.add("movie");
+        
+                movieEl.innerHTML = `
+                    <img
+                        src="${Movie_Poster_Url}"
+                        alt="${Title}"
+                    />
+                    <div class="movie-info">
+                        <h3>${Title}</h3>
+                        <span class="${getClassByRate(
+                            User_Rating
+                        )}">${User_Rating}</span>
+                    </div>
+                `;
+            });
             return movieObj;
   
       } catch (error) {
