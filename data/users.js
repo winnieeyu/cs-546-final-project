@@ -90,8 +90,6 @@ const userDataFunction = {
                                     }]
                     }
 
-                //console.log(newUser);
-        
             const userCollection = await users();
   
             //check if username  supplied exist
