@@ -14,7 +14,11 @@
  * 
  * 
  */
-
+//npm i express
+//npm i express-handlebars
+//npm install express-session
+//npm i mongodb
+//npm i bcryptjs
 import {dbConnection, closeConnection} from './config/mongoConnection.js';
 //import {bandData, albumData } from './data/index.js';
 import { moviesData,usersData,reviewsData,commentsData } from './data/index.js';
@@ -35,9 +39,7 @@ async function SeedDB(){
         const user = await usersData.createUser("Kyle","Walker","user001","kyle@gmail.com","M","Vegas","Texas",25,"user",`I liked the movie. It had good throwbacks to the first Top Gun movie and was nostalgic to watch. I liked that it added to the characters and their
         stories from the first movie.`,["Superhero","Action","Horror"]);
 
-        //const user1 = await usersData.createUser("Kyle","Walker","user0011","kyle@gmail.com","M","Vegas","Texas",25,"password123","This are my comments as user intro.",["Superhero","Action","Horror"]);
-
-        const creed3 = await moviesData.createMovie("Creed III (2023)","03/03/2023",["Drama","Sport and Recreation"],"Michael B. Jordan",["Bianca Creed","Wood Harris","Phylicia Rashad","Tessa Thompson","Spence Moore II","Ann Najjar"],"http://cps-static.rovicorp.com/2/Open/MGM/Program/48935310/_derived_jpg_q90_584x800_m0/Creed_2x3_27_1677058005284_2.jpg",3.5,13);
+        const creed3 = await moviesData.createMovie("Creed III (2023)","03/03/2023",["Drama","Sport and Recreation"],"Michael B. Jordan",["Bianca Creed","Wood Harris","Phylicia Rashad","Tessa Thompson","Spence Moore II","Ann Najjar"],"http://cps-static.rovicorp.com/2/Open/MGM/Program/48935310/_derived_jpg_q90_584x800_m0/Creed_2x3_27_1677058005284_2.jpg",3.5,3);
        
                        await reviewsData.createReview(creed3.insertedId.toString(),"Creed III (2023)",`Reaping the benefits of his booming career and enjoying his stable family life, boxing sensation Adonis Creed (Michael B. Jordan) feels unstoppable. However, the unexpected return of his childhood friend and former rising boxing star (Jonathan Majors), who took the fall for a petty crime the duo committed years ago, forces Adonis to contend with long-buried demons from his past. Michael B. Jordan makes his directorial debut with the third installment to the boxing franchise. Co-starring Tessa Thompson and Wood Harris.`,
                                                              "English",["Drama","Sport and Recreation"],["Bianca Creed","Wood Harris","Phylicia Rashad","Tessa Thompson","Spence Moore II","Ann Najjar"],"03/03/2023","https://www.imdb.com/title/tt11145118/?ref_=nv_sr_srsg_0_tt_3_nm_5_q_cre","https://www.hollywood.com/movies/movie-ticket-buying-throughout-history-61015488");
@@ -78,25 +80,7 @@ async function SeedDB(){
                       await reviewsData.createReview(Endless.insertedId.toString(),"Endless",`When madly in love high school graduates Riley (Alexandra Shipp) and Chris (Nicholas Hamilton) are separated by a tragic car accident, Riley blames herself for her boyfriend's death while Chris is stranded in limbo. Miraculously, the two find a way to connect. In a love story that transcends life and death, both Riley and Chris are forced to learn the hardest lesson of all: letting go.`,
                                                             "English",["Drama","Fantasy","Romance"],["Alexandra Shipp","Nicholas Hamilton","DeRon Horton","Famke Janssen"],"08/14/2020","https://www.imdb.com/title/tt5723282/?ref_=nv_sr_srsg_7_tt_8_nm_0_q_endle","https://movietheaterprices.com/amc-ticket-prices/");
 
-                /*    await moviesData.createMovie("movietitle","releasedate",["Action"],"director",["cast"],"http://localhost:3000",3.5,230);
-
-                    await reviewsData.createReview(dune.insertedId.toString(),"movietitle",`movie description`,
-                    ["Action","Drama"],["cast"],"realease date","linktomovie","https://movietheaterprices.com/amc-ticket-prices/");
-
-                    await moviesData.createMovie("movietitle","releasedate",["Action"],"director",["cast"],"http://localhost:3000",3.5,230);
-
-                    await reviewsData.createReview(dune.insertedId.toString(),"movietitle",`movie description`,
-                    ["Action","Drama"],["cast"],"realease date","linktomovie","https://movietheaterprices.com/amc-ticket-prices/");
-                    await moviesData.createMovie("movietitle","releasedate",["Action"],"director",["cast"],"http://localhost:3000",3.5,230);
-
-                    await reviewsData.createReview(dune.insertedId.toString(),"movietitle",`movie description`,
-                    ["Action","Drama"],["cast"],"realease date","linktomovie","https://movietheaterprices.com/amc-ticket-prices/");
-                    await moviesData.createMovie("movietitle","releasedate",["Action"],"director",["cast"],"http://localhost:3000",3.5,230);
-
-                    await reviewsData.createReview(dune.insertedId.toString(),"movietitle",`movie description`,
-                    ["Action","Drama"],["cast"],"realease date","linktomovie","https://movietheaterprices.com/amc-ticket-prices/");
-*/
-
+              
         } catch (error) {
 
             console.log(error);
